@@ -38,6 +38,6 @@ logs/
 *.log
 
 node_modules/
-.mvn/wrapper/maven-wrapper.jar
+
 application-local.yml
 application-local.properties
