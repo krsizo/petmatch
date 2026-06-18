@@ -24,13 +24,13 @@ public class Pet
 	private long version;
 
 	@Column(nullable = false, length = 80)
-	private String name;        // кличка
+	private String name;
 
 	@Column(nullable = false)
-	private Integer age;            // возраст
+	private Integer age;
 
 	@Column(nullable = false, length = 80)
-	private String breed;       // порода
+	private String breed;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
@@ -41,13 +41,13 @@ public class Pet
 	private Size size;
 
 	@Column(length = 60)
-	private String temperament; // характер
+	private String temperament;
 
 	@Column(length = 1000)
-	private String description; // описание
+	private String description;
 
 	@Column(length = 500)
-	private String imageUrl;    // ссылка на фото
+	private String imageUrl;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 12)

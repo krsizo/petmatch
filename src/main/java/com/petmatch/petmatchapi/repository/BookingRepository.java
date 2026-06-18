@@ -14,16 +14,23 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
+
 	@EntityGraph(attributePaths = {"pet", "user"})
 	List<Booking> findAll();
+
 	@EntityGraph(attributePaths = {"pet", "user"})
 	List<Booking> findByUser(User user);
+
 	void deleteAllByPetId(Long petId);
+
 	void deleteAllByUserId(Long userId);
+
 	List<Booking> findByPet(Pet pet);
-	// Проверка: есть ли у питомца бронирование на это время
+
 	Optional<Booking> findByPetAndAppointmentTimeAndStatusNot(Pet pet, LocalDateTime appointmentTime, BookingStatus bookingStatus);
+
 	boolean existsByPetAndStatusInAndIdNot(Pet pet, List<BookingStatus> statuses, Long id);
+
 	@Modifying
 	@Query("""
 	update Booking b
