@@ -7,8 +7,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
 @SpringBootTest(properties = {
-	"spring.jpa.hibernate.ddl-auto=create-drop",
+	"spring.jpa.hibernate.ddl-auto=validate",
 	"spring.sql.init.mode=never",
+	"spring.jpa.defer-datasource-initialization=false",
 	"spring.rabbitmq.listener.simple.auto-startup=false",
 	"spring.jpa.properties.hibernate.jdbc.time_zone=UTC"
 })

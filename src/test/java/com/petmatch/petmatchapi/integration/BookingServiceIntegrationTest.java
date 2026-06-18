@@ -2,6 +2,7 @@ package com.petmatch.petmatchapi.integration;
 
 import com.petmatch.petmatchapi.dto.booking.BookingRequest;
 import com.petmatch.petmatchapi.exception.BookingConflictException;
+import com.petmatch.petmatchapi.exception.InvalidBookingStatusTransitionException;
 import com.petmatch.petmatchapi.model.*;
 import com.petmatch.petmatchapi.model.event.BookingEventType;
 import com.petmatch.petmatchapi.repository.BookingRepository;
@@ -196,5 +197,19 @@ class BookingServiceIntegrationTest extends IntegrationTestBase {
 				&& event.getPetId().equals(pet.getId())
 				&& event.getUserId().equals(user.getId())
 		));
+	}
+
+	@Test
+	void shouldNotConfirmCanceledBooking() {
+		BookingRequest request = new BookingRequest();
+		request.setPetId(pet.getId());
+		request.setAppointmentTime(LocalDateTime.now().plusDays(1));
+
+		Booking createdBooking = bookingService.createBooking(request);
+		Booking canceledBooking = bookingService.cancelBooking(createdBooking.getId());
+
+		assertThatThrownBy(() -> bookingService.confirmBooking(canceledBooking.getId()))
+			.isInstanceOf(InvalidBookingStatusTransitionException.class)
+			.hasMessage("Canceled booking cannot be changed");
 	}
 }
